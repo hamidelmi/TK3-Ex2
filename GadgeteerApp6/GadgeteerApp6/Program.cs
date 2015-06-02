@@ -16,12 +16,6 @@ using System.Text;
 
 namespace GadgeteerApp6
 {
-
-    class Pin : Control
-    {
-
-    }
-
     public partial class Program
     {
         private Joystick.Position position;
@@ -52,7 +46,7 @@ namespace GadgeteerApp6
             joystick.Calibrate();
             position = joystick.GetPosition();
 
-            joystick.JoystickPressed += joystick_JoystickPressed;
+            joystick.JoystickPressed += joystick_JoystickPressed;            
 
             var joystickThread = new Thread(JoystickReadThread);
             joystickThread.Start();
@@ -70,19 +64,20 @@ namespace GadgeteerApp6
 
         public void JoystickReadThread()
         {
-            //while (true)
-            //{
-            //    var newPos = joystick.GetPosition();
-            //    if (System.Math.Abs(newPos.Y - position.Y) > .5)
-            //    {
-            //        gameMode = gameMode == GameMode.P1 ? GameMode.P2 : GameMode.P1;
-            //        SelectionScreen();
-            //    }
-            //    else
-            //        position = newPos;
+            while (true)
+            {
+                var newPos = joystick.GetPosition();
+                if (newPos.Y > .7)
+                    game.Joystick(JoystickMovement.Top);
+                else if (newPos.Y < -.7)
+                    game.Joystick(JoystickMovement.Bottom);
+                else if (newPos.X > .7)
+                    game.Joystick(JoystickMovement.Right);
+                else if (newPos.X < -.7)
+                    game.Joystick(JoystickMovement.Left);
 
-            //    Thread.Sleep(100);
-            //}
+                Thread.Sleep(100);
+            }
         }
 
 
