@@ -27,6 +27,9 @@ namespace GadgeteerApp6 {
         /// <summary>The Display TE35 module using sockets 14, 13, 12 and 10 of the mainboard.</summary>
         private Gadgeteer.Modules.GHIElectronics.DisplayTE35 displayTE35;
         
+        /// <summary>The USB Client DP module using socket 1 of the mainboard.</summary>
+        private Gadgeteer.Modules.GHIElectronics.USBClientDP usbClientDP;
+        
         /// <summary>This property provides access to the Mainboard API. This is normally not necessary for an end user program.</summary>
         protected new static GHIElectronics.Gadgeteer.FEZSpider Mainboard {
             get {
@@ -53,6 +56,7 @@ namespace GadgeteerApp6 {
             this.ledStrip = new GTM.GHIElectronics.LEDStrip(8);
             this.joystick = new GTM.GHIElectronics.Joystick(9);
             this.displayTE35 = new GTM.GHIElectronics.DisplayTE35(14, 13, 12, 10);
+            this.usbClientDP = new GTM.GHIElectronics.USBClientDP(1);
         }
     }
 }
