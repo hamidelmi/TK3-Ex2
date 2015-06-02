@@ -40,12 +40,13 @@ namespace GadgeteerApp6
             // Use Debug.Print to show messages in Visual Studio's "Output" window during debugging.
             Debug.Print("Program Started");
 
-            game = new Game(new GameDisplayTE35(displayTE35));
+            ledStrip.TurnAllLedsOff();
+            game = new Game(new GameDisplayTE35(displayTE35), new LEDStripResultIndicator(ledStrip));
 
             joystick.Calibrate();
             position = joystick.GetPosition();
 
-            joystick.JoystickPressed += joystick_JoystickPressed;            
+            joystick.JoystickPressed += joystick_JoystickPressed;
 
             var joystickThread = new Thread(JoystickReadThread);
             joystickThread.Start();
