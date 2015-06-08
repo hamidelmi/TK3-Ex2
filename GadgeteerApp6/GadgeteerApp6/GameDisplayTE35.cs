@@ -2,20 +2,51 @@ using System;
 using Microsoft.SPOT;
 using Gadgeteer.Modules.GHIElectronics;
 using GT = Gadgeteer;
+using GadgeteerApp6;
 
-namespace GadgeteerApp6
+namespace MasterMind
 {
+    /// <summary>
+    /// Neccessary funcionalities that a display should support to be used to display the game
+    /// </summary>
     public interface IGameScreen
     {
+        /// <summary>
+        /// Selected Pin
+        /// </summary>
         int Selected { get; }
+        
+        /// <summary>
+        /// Shows the main menu in which user will see two option for 1 player and 2 player
+        /// </summary>
+        /// <param name="game"></param>
         void SelectionScreen(Game game);
+
+        /// <summary>
+        /// Shows the guess screen in which user can see previous list of guesses and their result
+        /// It should use the movement parameter in case it is not None to update the screen
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="movement"></param>
         void GuessScreen(Game game, JoystickMovement movement);
 
+        /// <summary>
+        /// Show the result (secret code) on the screen
+        /// </summary>
+        /// <param name="game"></param>
         void ResultScreen(Game game);
 
+        /// <summary>
+        /// Show a screen to let the user set the secret code
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="movement"></param>
         void SecretScreen(Game game, JoystickMovement movement);
     }
 
+    /// <summary>
+    /// An implementation which use DisplayTE35 to display the game
+    /// </summary>
     class GameDisplayTE35 : IGameScreen
     {
         private DisplayTE35 displayTE35;

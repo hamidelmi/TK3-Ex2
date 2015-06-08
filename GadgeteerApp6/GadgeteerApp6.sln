@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GadgeteerApp6", "GadgeteerApp6\GadgeteerApp6.csproj", "{19E2EDA0-6852-4626-906F-9048CAA62690}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterMind", "GadgeteerApp6\MasterMind.csproj", "{19E2EDA0-6852-4626-906F-9048CAA62690}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

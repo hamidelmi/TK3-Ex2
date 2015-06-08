@@ -12,6 +12,8 @@ using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 using Gadgeteer.Modules.GHIElectronics;
 using System.Text;
+using MasterMind;
+
 
 namespace GadgeteerApp6
 {
@@ -41,27 +43,28 @@ namespace GadgeteerApp6
             Debug.Print("Program Started");
 
             ledStrip.TurnAllLedsOff();
+
+            //Configure the game object with our available gadgeeter module
             game = new Game(new GameDisplayTE35(displayTE35), new LEDStripResultIndicator(ledStrip));
 
             joystick.Calibrate();
             position = joystick.GetPosition();
 
-            joystick.JoystickPressed += joystick_JoystickPressed;
-
             var joystickThread = new Thread(JoystickReadThread);
             joystickThread.Start();
 
+            //In case user clicked on the button, let the game object know
             button.ButtonPressed += (s, ea) =>
             {
                 game.ButtonPressed();
             };
         }
 
-        void joystick_JoystickPressed(Joystick sender, Joystick.ButtonState state)
-        {
-            //throw new NotImplementedException();
-        }
 
+        /// <summary>
+        /// Check the joystick movement and reports interesting movement to the game object
+        /// It should be run on a different thread 
+        /// </summary>
         public void JoystickReadThread()
         {
             while (true)

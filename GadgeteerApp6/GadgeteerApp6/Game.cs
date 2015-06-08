@@ -6,8 +6,11 @@ using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 
 
-namespace GadgeteerApp6
+namespace MasterMind
 {
+    /// <summary>
+    /// Game core
+    /// </summary>
     public class Game
     {
         public const int MAX_GUESS = 10, MAX_PIN = 4, MAX_COLOR = 6;
@@ -21,8 +24,6 @@ namespace GadgeteerApp6
         public PinColor[][] guesses;
         public GT.Color[][] results;
         public int numberOfGuess;
-
-
 
         public GameMode gameMode
         {
@@ -84,6 +85,9 @@ namespace GadgeteerApp6
             gameStatus = GameStatus.SelectionMode;
         }
 
+        /// <summary>
+        /// Add a new empty row to list of guesses
+        /// </summary>
         private void AddNewGuess()
         {
             if (numberOfGuess > 0)
@@ -97,6 +101,10 @@ namespace GadgeteerApp6
                 guesses[numberOfGuess][j] = PinColor.None;
         }
 
+        /// <summary>
+        /// Generate a random array of color out of available colors
+        /// </summary>
+        /// <returns></returns>
         private PinColor[] GenerateRandomSecret()
         {
             Random r = new Random();
@@ -109,6 +117,17 @@ namespace GadgeteerApp6
             return result;
         }
 
+        /// <summary>
+        /// In case button pressed, this method should be called
+        /// It will check the game status:
+        ///     selection mode: 
+        ///         1 Player: show guess screen
+        ///         2 Player: show sceret screen
+        ///     Secret screen: Show guess screen
+        ///     Guess screen: check the selection set and show the partial result
+        ///                     in case it was the last selection, show the final result
+        ///     Resultscreen: Show the menu screen
+        /// </summary>
         public void ButtonPressed()
         {
             switch (gameStatus)
@@ -151,6 +170,11 @@ namespace GadgeteerApp6
             }
         }
 
+        /// <summary>
+        /// Check the result and return true if all the pins' color and position are correct
+        /// It also save the partial result in the class
+        /// </summary>
+        /// <returns></returns>
         private bool CalculateResult()
         {
             int correct = 0;
@@ -180,6 +204,17 @@ namespace GadgeteerApp6
             return correct == MAX_PIN;
         }
 
+        /// <summary>
+        /// Response to joystick movement based on game status:
+        ///     Selection Mode: 
+        ///         Top: Active 1 player mode
+        ///         Buttom : Active 2 player mode
+        ///     Enter Secret:
+        ///         Top,Buttom: Change the color of selcted pin of the secret
+        ///     Guess screen:
+        ///         Top,Buttom: Change the color of selcted pin of the current row of guesses
+        /// </summary>
+        /// <param name="movement"></param>
         public void Joystick(JoystickMovement movement)
         {
             switch (gameStatus)
